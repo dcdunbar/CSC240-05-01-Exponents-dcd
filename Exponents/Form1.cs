@@ -8,8 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 
 /**************************************
- * Name:
- * Date:
+ * Name: David Dunbar
+ * Date: 06/27/2024
  * Description: A program using user-created method
  *              for the math function Square and Cube
  * Assistance:
@@ -27,39 +27,56 @@ namespace Exponents
         private void xGoButton_Click(object sender, EventArgs e)
         {
             // STORAGE
+            int number;
 
             // INPUT
+            // Try to parse the input as an integer; handle potential format issues
+            bool isValidInput = int.TryParse(xInputTextBox.Text, out number);
+            if (!isValidInput)
+            {
+                MessageBox.Show("Please enter a valid integer.");
+                return;
+            }
 
             // PROCESS
-            /* calculate the square of the number and add it to the output - 
-             * do this with a method call that allows you to pass the number
-             * and then receive the answer */
-
-            /* calculate the cube of the number and add it to the output - 
-             * do this by creating a methd as in the squaring example above */
+            // Calculate the square and cube of the number
+            int squareResult = Square(number);
+            int cubeResult = Cube(number);
 
             // OUTPUT
-            // set the output to visible
+            // Display the results in the single output label
+            xOutputLabel.Text = $"Square: {squareResult}, Cube: {cubeResult}";
 
-            // turn the Go button off
+            // Optionally turn the output to visible if it's managed via visibility
+            xOutputLabel.Visible = true;
+
+            // Turn the Go button off to prevent further inputs until reset
+            xGoButton.Enabled = false;
         }
 
-        public int Square(int num)
+        // Method to calculate square of a number
+        private int Square(int num)
         {
-            // we will create this code in class
+            return num * num;
         }
 
-        public int Cube(int num)
+        // Method to calculate cube of a number
+        private int Cube(int num)
         {
-            // we will create this code in class
+            return num * num * num;
         }
 
         private void xResetButton_Click(object sender, EventArgs e)
         {
-            // the input and output text should be emptied
-            // turn the output to invisible
-            // turn the Go button back on
-        }
+            // Clear the input and output text
+            xInputTextBox.Text = string.Empty;
+            xOutputLabel.Text = "";
 
+            // Optionally turn the output to invisible
+            xOutputLabel.Visible = false;
+
+            // Turn the Go button back on
+            xGoButton.Enabled = true;
+        }
     }
 }
